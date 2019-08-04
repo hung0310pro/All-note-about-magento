@@ -30,4 +30,58 @@ public function getVoiceShip($id)
 
 		return $array;
 }
+
++  Lấy thông tin Adress cả billing lẫn shipping của customer by id customer
+
+<?php
+namespace YourCompanyName\YourModuleName\Block;
+ 
+class YourCustomBlock extends \Magento\Framework\View\Element\Template
+{    
+    protected $_customerFactory;
+ 
+    protected $_addressFactory;
+         
+    public function __construct(
+        \Magento\Backend\Block\Template\Context $context,        
+        \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Magento\Customer\Model\AddressFactory $addressFactory,
+        array $data = []
+    ) {
+        $this->_customerFactory = $customerFactory;
+        $this->_addressFactory = $addressFactory;
+        parent::__construct($context, $data);
+    }
+     
+    public function getCustomerById($id) {
+        return $this->_customerFactory->create()->load($id);
+    }
+ 
+    public function getCustomerAddressById($addressId) {
+        return $this->_addressFactory->create()->load($addressId);
+    }
+}
+
+Now, we can use the functions in our view (.phtml) file as follows.
+	
+// get customer by id
+$customer = $block->getCustomerById(5);
+ 
+echo $customer->getFirstname() . '<br>';
+echo $customer->getLastname() . '<br>';
+echo $customer->getEmail() . '<br>';
+ 
+// get the customer default billing address
+$billingAddressId = $customer->getDefaultBilling();
+$address = $block->getCustomerAddressById($billingAddressId);
+echo '<pre>';
+    print_r($address->getData());
+echo '</pre>';
+ 
+// get the customer default shipping address
+$shippingAddressId = $customer->getDefaultShipping();
+$address = $block->getCustomerAddressById($shippingAddressId);
+echo '<pre>';
+    print_r($address->getData());
+echo '</pre>';
 	
