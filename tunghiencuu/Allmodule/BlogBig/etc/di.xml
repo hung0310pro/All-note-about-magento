@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--cái này có tác dụng khai báo bảng trong admin, và lấy dữ liệu của các thứ tương ứng-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--  // cái này để viết menu (kế thừa cái viết menu của nó) cái frontend ấy-->
+    <preference for="Magento\Theme\Block\Html\Topmenu" type="AHT\BlogBig\Block\MyMenu"/>
+    <!--<preference for="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable"
+                type="AHT\BlogBig\Block\Configurable"/>-->
+
+
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="changeAllowProductsBehaviour"
+                type="AHT\BlogBig\Plugin\Configurable"
+                sortOrder="10"/>
+    </type>
+
+    <!-- // phần này nó lấy dữ liệu ra ui component-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <!--dữ liệu đổ ra danh sách ui_compponent của Portfolio bởi cái (1)-->
+                <item name="blogbigpf_listing_data_source" xsi:type="string">
+                    AHT\BlogBig\Model\ResourcePortfolioModel\Portfolio\Grid\Collection
+                </item>
+                <!--
+                dữ liệu đổ ra danh sách ui_compponent của Category bởi cái (2)
+                chú ý cái name là ở bên cái file ui_compornent tương ứng nhé (blogbigct_listing_data_source)
+                -->
+                <item name="blogbigct_listing_data_source" xsi:type="string">
+                    AHT\BlogBig\Model\ResourceCategoryModel\Category\Grid\Collection
+                </item>
+
+                <item name="blogbigpf_listingcmt_data_source" xsi:type="string">
+                    AHT\BlogBig\Model\ResourceCommentModel\Comment\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- (1)-->
+    <virtualType name="AHT\BlogBig\Model\ResourcePortfolioModel\Portfolio\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">portfolio</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\BlogBig\Model\ResourcePortfolioModel\Portfolio
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--(2)-->
+    <virtualType name="AHT\BlogBig\Model\ResourceCategoryModel\Category\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">category</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\BlogBig\Model\ResourceCategoryModel\Category</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AHT\BlogBig\Model\ResourceCommentModel\Comment\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">comment</argument>
+            <argument name="resourceModel" xsi:type="string">AHT\BlogBig\Model\ResourceCommentModel\Comment</argument>
+        </arguments>
+    </virtualType>
+
+    <!--  phần này phục vụ cho việc upload, lấy dữ liệu ra đó
+
+    name imageUploader này cx giống name ở bên trang ui_component
+    -->
+    <type name="AHT\BlogBig\Controller\Adminhtml\IndexPortfolio\UploadImage">
+        <arguments>
+            <!--cái này dùng cho cái virtualType ở dưới-->
+            <argument name="imageUploader" xsi:type="object">AHT\BlogBig\Image</argument>
+            <!-- cái này phục vụ cho cái trả về dữ liệu, đây là link gốc rồi nên không
+             cần phải dùng tới cái virtualType ảo kia nữa-->
+            <argument name="class" xsi:type="string">AHT\BlogBig\Model\Question\DataProvider</argument>
+        </arguments>
+    </type>
+    <!--    cái ở dưới này phục vụ cho việc nhét ảnh vào cái folder mình cần-->
+    <virtualType name="AHT\BlogBig\Image" type="AHT\BlogBig\Model\Image">
+        <arguments>
+            <!-- đây là chỗ chuyển sang link để ảnh baseTmpPath: cái này sẽ tự tạo khi mình
+            điền vào cái tên image-->
+            <argument name="baseTmpPath" xsi:type="string">image</argument>
+            <argument name="basePath" xsi:type="string">image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

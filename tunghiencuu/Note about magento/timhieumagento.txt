@@ -1,0 +1,31 @@
+﻿+ Phân quyền magento 2
+
+- Lệnh phân quyền
+<resource id="Vendor_Module::Name" title="" sortOrder="">  //  tên module thiết lập khai báo để phân quyền
+    <resource id="Vendor_Module::Name" title="" sortOrder=""/> // những cái action ở trong cái module đó mà mình để nó hiển thị để phân quyền(add,edit,delete,save...)
+    <resource id="Vendor_Module::Name" title="" sortOrder=""/>
+</resource>
+(edit,add thì đều là phải dùng hành động save => save)
+- vào etc tạo 1 tập tin acl.xml (như trong module BlogBig)
+
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+               <resource id="Vendor_Module::Name" title="" sortOrder="">  // name ở đây nên để theo tên giống như ở menu(menu.xml trong etc)
+                   <resource id="Vendor_Module::Name" title="" sortOrder=""/> // name ở đây sẽ là action (1)
+                   <resource id="Vendor_Module::Name" title="" sortOrder=""/>
+               </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>
+
+
+- Sau đó vào System->User roles rồi vào đó tạo 1 cái Quyền mình muốn phân(Role Info), sau đó chọn các cái(Role Resources) ô option chọn custom
+thì nó sẽ ra tất cả các mục thì mình bắt đầu tích, chọn cái nào thì cái quyền đó sẽ đc làm việc những module đó. 
+- Trước đó vào các hàm thực hiện Add,Update,Delete trong adminhtml trong Controller thêm 1 hằng là Role Resources vs giá trị là Vendor_Module::Name 
+tương ứng vs hàm (1).
+- Cuối cùng tạo 1 tài khoản(System-> All users) rồi chọn cái quyền mình vừa tạo cho nó là phân xong

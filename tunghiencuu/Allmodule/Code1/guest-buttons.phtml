@@ -1,0 +1,50 @@
+<?php
+// cách khai báo và sửa dụng helper
+$helper = $this->helper('Convert\Catalog\Helper\Data');
+?>
+<?php if (!$helper->isCustomerLoggedIn()): ?>
+
+    <div class="wholesale-only">
+		<?php
+
+		$informationProduct = $block->getProduct()->getData();
+		// sẽ lấy đc tất cả các name field của sản phẩm đó
+		foreach ($informationProduct as $key => $value){
+			echo "<pre>";
+			print_r($key);
+			echo "</pre>";
+		}
+
+		// 3 cái này là lấy dữ liệu của 3 cột tương ứng của sản phẩm đó
+		$urlKey = $block->getProduct()->getUrlKey();
+		$product_redirect_to = $block->getProduct()->getProduct_redirect_to();
+		$websiteIds = $block->getProduct()->getWebsite_ids();
+
+
+		if (empty($http_response_header) || !isset($product_redirect_to)) {
+			$http_response_header = "1";
+		}
+
+        // truyền sang helper
+		$link = $helper->getBaseUrlMedia($urlKey, $websiteIds, $product_redirect_to);
+		if ($link == 1) {
+			$a = "none";
+            $b = 0;
+		} else {
+			$a = "block";
+            $b = 1;
+		}
+
+		?>
+
+    </div>
+    <script>
+        window.productUrlWebsite = '<?php echo $link?>';
+        window.showProductUrlWebsite = <?php echo $b ?>;
+    </script>
+    <div class="guest-buttons">
+        <div><a class="btn btn-login" href="<?= $helper->getUrlMedia() ?>customer/account/login/">SIGN
+                IN FOR PRICE</a>
+            <a style="display: <?= $a ?>" class="btn-hollow btn-retail" href="<?= $link ?>">GO TO WEBSITE</a></div>
+    </div>
+<?php endif; ?>

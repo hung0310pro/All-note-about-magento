@@ -1,0 +1,34 @@
+﻿+ even trong admin thì vào etc->adminhtml->events.xml
++ even trong forntend thì vào etc->frontend->events.xml
++ Kiểu sau khi save thì thực hiện những cái gì, ví dụ như thông báo, ngoài ra còn gửi tin nhắn, gửi mail ....
++ ví dụ vs adminhtml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="staff_savedata"> // cái này là name cần để dùng nhé, name của <observer k quan trọng lắm nhưng cứ đặt cho nó theo vender
+        <observer name="qho_staff_savedata" instance="QHO\Staff\Observer\SaveData" />
+    </event>
+</config>
+
+- SaveData là tập tin xử lý. 
+(Controller/adminhtml/Index/Save)
+$staffModel->save();
+$this->_eventManager->dispatch("staff_savedata",["model"=>$staffModel]); (gọi tới cái _eventManage, sử dụng hàm dispatch, bên trong là tên event, và
+dữ liệu cần truyền).
+
++ Tiếp tạo folder Observer, và file SaveData.php trong folder đó.
+<?php
+namespace QHO\Staff\Observer;
+use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
+use Psr\Log\LoggerInterface; // cái này là để in chữ thông báo
+class SaveData implements ObserverInterface{
+	protected $_logger;
+	public function __construct(LoggerInterface $logger){
+		$this->_logger=$logger;
+	}
+	public function execute(Observer $observer){  // hàm này là phải có cái Observer $observer, và khai báo ở trên, để nhận được dữ liệu truyền sang.
+		$model=$observer->getModel();(get+namekey ở trên viết hoa chữ đầu)
+		$this->_logger->info("Staff Edited: ".$model->getName());/ cái này là để in chữ thông báo ở filde log trong chỗ var của magento ấy
+	}
+}
+

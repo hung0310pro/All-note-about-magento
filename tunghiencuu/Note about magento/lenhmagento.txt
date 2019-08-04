@@ -1,0 +1,40 @@
+﻿+ $this->getPost()->getId() get id
+
++ use AHT\BlogBig\Model\CategoryFactory; get du lieu boi form
+ $model = $this->_category->create();
+$request = $this->getRequest();
+$formData = $request->getPostValue();
+// muốn add kiểu này thì phải có name trùng vs tên cột
+$model->setData($formData);
+$model->save();			
+
+
++ Trong admin
+- Cách gọi nội dung của 1 file phtml vào 1 page (Convert\BookSkin\Block\BookSkin) block của nó
+{{block class="Convert\BookSkin\Block\BookSkin" template="Convert_BookSkin::bookskin.phtml"}}
+
+* Như cái bookskin 2 cái ô option thì mình lại phải tạo ở trong cái customvalible xong gọi nó ở trong file bookskin.phtml
+Cách gọi như sau :
+public function getVariableValueOily() // trong cái block
+{
+		$model = $this->_objectManager->get('Magento\Variable\Model\Variable')->loadByCode('Are-you-dry-or-oily');
+		$html_value = $model->getHtmlValue();
+		return $html_value;
+}
+<?= $this->getVariableValueOily() ?> () trong file phtml
+
+- Cách gọi 1 block vào 1 cms page : 
+{{block class="Magento\\Cms\\Block\\Block" block_id="home_skin_blog"}} (home_skin_blog là id của block đó trong admin)
+
+- Cách chèn 1 cái link trong cms blog sidebar
+<li><a id="book-your-free-skin-consultation" href="{{store url='book-skin'}}">Book a skin consultation</a></li>
+* trong đó book-skin : là link url của page
+* book-your-free-skin-consultation là cái tiler của cái page đó, dùng hàm globalTitle() ở cái console của cái trang đó.
+
++(1) Muốn lấy sản phẩm product gồm tất cả mọi thứ thì vào trong block của BlogMvc (BlogTest.php);
+
++(2) trong Magento4(RouteHome) có cái plugin(chuyển tất cả các link sai về homepage thây vì về 404)
+
++(3) Muốn lấy mọi thông tin của 1 sản phẩm chi tiết trog chính trang chi tiết, và lấy id stoview,code stoview, hay đơn giản lấy đc thông tin của
+attribute của sản phẩm thì vào (Folder Code1)
+

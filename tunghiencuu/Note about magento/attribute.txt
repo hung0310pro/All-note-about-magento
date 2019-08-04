@@ -1,0 +1,104 @@
+﻿+ 1 số cái liên quan tới attribute, bao gồm lấy list attribute, hoặc lấy attribute bằng text, or id : https://www.rootways.com/magento-2-get-all-values-of-dropdown-attribute/
+https://www.rakeshjesadiya.com/get-product-attributes-option-id-from-label-and-get-option-label-from-id-in-magento-2/
+
++$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+
+$sizes = $productRepository->get('sizes')->getOptions();
+foreach ($sizes as $sizesOption) {
+    if ($sizesOption->getValue() != '') {
+        $sizesOption->getValue();
+        $sizesOption->getLabel();
+    }
+}
+
+
++ 
+
+
+
+
+
++ Create attribute by code : http://www.blogtreat.com/create-product-attribute-drop-option-magento-2-via-installdata-php/
+
++ Đôi khi lại là lấy attribute của product: Tham khảo cái (magento2 Allcodehay->Code1)
+
+Trong Data sẽ có cái hàm :
+
+public function __construct(
+		\Magento\Catalog\Model\ProductFactory $_productloader,
+		array $data = []
+	)
+	{
+		$this->_productloader = $_productloader;
+		parent::__construct($context);
+	}
+
+public function getLoadProduct($id)
+{
+		return $this->_productloader->create()->load($id);
+}
+// sau đó ở trang phtml sẽ là 
+<?php
+            //productId là id của product
+							$product = $helper->getLoadProduct($productId);
+
+          //limited_and_new attribute code
+							$datalimit = $product->getData('limited_and_new');
+							$dataSale = $product->getData('sale_product');
+
+							// get text attribute
+						$attrSale = $product->getResource()->getAttribute('sale_product');
+						$attrLimit = $product->getResource()->getAttribute('limited_and_new');
+
+						// get text attribute lần 2
+							if ($attrSale->usesSource()) {
+								$valueSale = $attrSale->getSource()->getOptionText($dataSale);
+							}
+
+							if ($attrLimit->usesSource()) {
+								$valueLimit = $attrLimit->getSource()->getOptionText($datalimit);
+							}
+
+							?>
+
+
+namespace Rbj\ProductAttribute\Helper;
+ 
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
+{
+    public function __construct(
+        \Magento\Framework\App\Helper\Context $context,
+        \Magento\Catalog\Model\ProductFactory $productFactory
+    ) {
+        $this->productFactory = $productFactory;
+        parent::__construct($context);
+    }
+ 
+    /* Get Label by option id */
+    public function getOptionLabelByValue($attributeCode,$optionId)
+    {
+        $_product = $this->productFactory->create();
+        $isAttributeExist = $_product->getResource()->getAttribute($attributeCode); 
+        $optionText = '';
+        if ($isAttributeExist && $isAttributeExist->usesSource()) {
+            $optionText = $isAttributeExist->getSource()->getOptionText($optionId);
+        }
+        return $optionText;
+    }
+ 
+   /* Get Option id by Option Label */
+    public function getOptionIdByLabel($attributeCode,$optionLabel)
+    {
+        $_product = $this->productFactory->create();
+        $isAttributeExist = $_product->getResource()->getAttribute($attributeCode);
+        $optionId = '';
+        if ($isAttributeExist && $isAttributeExist->usesSource()) {
+            $optionId = $isAttributeExist->getSource()->getOptionId($optionLabel);
+        }
+        return $optionId;
+    }
+
+
+$optionValue = $this->getOptionLabelByValue('color','50'); // result is blue
+$optionId = $this->getOptionIdByLabel('color','Blue'); // result is 50

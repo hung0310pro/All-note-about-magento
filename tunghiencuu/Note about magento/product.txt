@@ -1,0 +1,21 @@
+Magento 2: Display product review  
++ Display product review using model: (neu goi ra trong model)
+$storeId = $manager->getStore()->getId();
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+$reviewFactory = $objectManagerr->get(‘Magento\Catalog\Block\Product\ReviewRendererInterface’)
+->getReviewsSummaryHtml($product, $templateType,true);
+
+echo $reviewFactory;
+?>
+
+
++ Display product review using block: (neu goi ra trong block)
+
+<?php
+// Display review
+$objectManagerr = \Magento\Framework\App\ObjectManager::getInstance();
+$blockList = $objectManagerr->get('Magento\Catalog\Block\Product\ListProduct'); 
+                                            
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+echo $blockList->getReviewsSummaryHtml($product, $templateType,true);
+?>

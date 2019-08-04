@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="AHT_BlogBig::blogbig" title="BlogBig" module="AHT_BlogBig" sortOrder="10"
+             resource="AHT_BlogBig::blogbig"/>
+        <add id="AHT_BlogBig::blogbig_listcg" title="Categories" module="AHT_BlogBig" sortOrder="10"
+             action="blogbig/indexcategory/index"
+             resource="AHT_BlogBig::blogbig" parent="AHT_BlogBig::blogbig"/>
+        <add id="AHT_BlogBig::blogbig_listpf" title="Portfolio" module="AHT_BlogBig" sortOrder="10"
+             action="blogbig/indexportfolio/index"
+             resource="AHT_BlogBig::blogbig" parent="AHT_BlogBig::blogbig"/>
+        <add id="AHT_BlogBig::blogbig_listcmt" title="Comment" module="AHT_BlogBig" sortOrder="10"
+             action="blogbig/indexcmt/index"
+             resource="AHT_BlogBig::blogbig" parent="AHT_BlogBig::blogbig"/>
+    </menu>
+</config>

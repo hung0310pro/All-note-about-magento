@@ -1,0 +1,36 @@
++ Lấy 1 số thông tin từ bảng order : 
+public function __construct(
+		\Magento\Sales\Model\ResourceModel\Order\Invoice\CollectionFactory $invoice_collection,
+		\Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory $Shipment,
+		array $data = []
+	)
+	{
+		$this->_shipment = $Shipment;
+		$this->_invoice = $invoice_collection;
+		parent::__construct($context, $data);
+	}
+
+// lấy thông tin từ bảng ship, và bảng invoice của đơn hàng bởi cái id order.
+public function getVoiceShip($id)
+	{
+		$model = $this->_invoice->create();
+		$modelShip = $this->_shipment->create();
+		$array = [];
+		$detailVoice = $model->addFieldToFilter("order_id", ["eq" => $id])
+			->getData();
+		$detailShip = $modelShip->addFieldToFilter("order_id", ["eq" => $id])
+			->getData();
+
+		foreach ($detailVoice as $value) {
+			$array['voice_id'] = $value['increment_id'];
+		}
+
+		foreach ($detailShip as $value) {
+			$array['ship_id'] = $value['increment_id'];
+		}
+
+		return $array;
+	}
+
+Ngoài ra còn có thể tham khảo ở trang : 
+http://www.blogtreat.com/how-to-get-order-information-by-order-id-in-magento-2/

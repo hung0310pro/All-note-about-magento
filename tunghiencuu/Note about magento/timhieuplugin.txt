@@ -1,0 +1,107 @@
+Plugin : 
+
+Plugins can not be used on following:
+
+Final methods
+Final classes
+Non-public methods
+Class methods (such as static methods)
+__construct
+Virtual types
+Objects that are instantiated before Magento\Framework\Interception is bootstrapped
+
+
++ Before :
+
+- Bạn có thể sử dụng before methods để thay đổi các đối số của một function gốc bằng cách trả về 1 ĐỐI SỐ ĐÃ SỬA ĐỔI.
+- Nếu có NHIỀU hơn một đối số, phương thức sẽ trả về một MẢNG các đối số đó.(tức là nếu như cái before methods trả về nhiều hơn 1 đối số thì nó sẽ trả về 1 mảng so vs hàm gốc(có thể hàm gốc chỉ trả về 1 đối số)).
+- Nếu phương thức không thay đổi đối số so với function gốc, nó sẽ trả về null(ví dụ file AHT\BlogBig\Plugin\Configurable  thì trong này nó cx chỉ trả về 1 đối số, và kết quả trả về không khác gì thằng hàm cũ thì ta trả về rỗng.(mặc dù có thể thay đổi số lượng sản phẩm trong mảng nhưng vẫn trả về mảng đó)).
+
++ After : 
+
+- Magento sẽ chạy after methods sau khi nó hoàn thành cái hàm gốc. 
+
+- Bạn có thể sử dụng các method này để thay đổi kết quả của một function gốc bằng cách sửa đổi kết quả ban đầu và trả về ở cuối phương thức. 
+
+- After methods có quyền truy cập vào tất cả các đối số của các function gốc của chúng. 
+sau khi chạy xong function GỐC, Magento chuyển kết quả và đối số sang phương thức tiếp theo là AFTER METHOD. Nếu function gốc không trả về kết quả (@return void), thì nó sẽ chuyển null sang phương thức tiếp theo sau.
+
+Ví dụ : 
+<?php
+namespace My\Module\Plugin;
+
+class AuthLogger
+{
+    private $logger;
+
+    public function __construct(\Psr\Log\LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    /**
+     * @param \Magento\Backend\Model\Auth $authModel
+     * @param null $result
+     * @param string $username
+     * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function afterLogin(\Magento\Backend\Model\Auth $authModel, $result, $username)
+    {
+        $this->logger->debug('User ' . $username . ' signed in.');
+    }
+}
+
+ở đây function Login gốc không trả về cái gì cả, chỉ trả về mấy cái thông báo nếu đăng nhập sai...
+Mình vẫn lấy đc $username bởi vì ý ở trên có ghi : (After methods có quyền truy cập vào tất cả các đối số của các function gốc của chúng).
+
+ 
+- After method không cần khai báo tất cả các đối số của các function gốc(dùng cái nào thì khai báo thằng đó thôi) của chúng NGOẠI TRỪ nếu như nó dùng 1 đối số $a mà trước $a là đối số $b
+
+Ví dụ :
+function gốc : 
+public function updateWebsites($productIds, $websiteIds, $type)
+    {
+        if ($type == 'add') {
+            $this->_productWebsiteFactory->create()->addProducts($websiteIds, $productIds);
+        } elseif ($type == 'remove') {
+            $this->_productWebsiteFactory->create()->removeProducts($websiteIds, $productIds);
+        }
+        $this->setData(
+            ['product_ids' => array_unique($productIds), 'website_ids' => $websiteIds, 'action_type' => $type]
+        );
+        $categoryIndexer = $this->indexerRegistry->get(\Magento\Catalog\Model\Indexer\Product\Category::INDEXER_ID);
+        if (!$categoryIndexer->isScheduled()) {
+            $categoryIndexer->reindexList(array_unique($productIds));
+        }
+        $this->_eventManager->dispatch('catalog_product_to_website_change', ['products' => $productIds]);
+}
+
+- After function
+class WebsitesLogger
+{
+    private $logger;
+
+    public function __construct(\Psr\Log\LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function afterUpdateWebsites(\Magento\Catalog\Model\Product\Action $subject, $result, $productIds, $websiteIds)
+    {
+        $this->logger->log('Updated websites: ' . implode(', ',  $websiteIds));
+    }
+}
+
+- Như ở đây thì trong hàm afterUpdateWebsites() thì nó chỉ sử dụng biến $websiteIds của hàm gốc nhưng trong hàm gốc thì biến $productIds lại đứng trước biến $websiteIds nên phải khai báo $productIds, NGoài ra ở hàm gốc có biến $type nhưng do không dùng nên k cần khai báo
+
+
++ Around : 
+
+- Trước danh sách các đối số của phương thức gốc, xung quanh các phương thức nhận được một cuộc gọi sẽ cho phép gọi đến phương thức tiếp theo trong chuỗi. Khi mã của bạn thực thi có thể gọi được, Magento gọi plugin tiếp theo hoặc chức năng được quan sát.
+
+Tham khảo thêm module categorythumnail
+
+
+
+

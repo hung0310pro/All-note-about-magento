@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">blogbigcmtupdate_listing.block_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save">
+                <url path="blogbig/indexcmt/updatecmt/id"/>
+                <class>primary</class>
+                <label translate="true">Update</label>
+            </button>
+            <button name="delete" class="AHT\BlogBig\Block\Adminhtml\BlogPortfolio\DeleteButton"/>
+            <button name="back" class="AHT\BlogBig\Block\Adminhtml\BlogPortfolio\BackButton"/>
+        </buttons>
+        <namespace>blogbigcmtupdate_listing</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>blogbigcmtupdate_listing.blogbigcmtupdate_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="blogbigcmtupdate_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="blogbig/indexcmt/updatecmt"/>
+        </settings>
+        <!--chỗ này để lấy dữ liệu ra không cần n-->
+        <dataProvider class="AHT\BlogBig\Model\MyComment\DataProvider" name="blogbigcmtupdate_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <!--ô checkbox-->
+        <field name="status_cmt" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">question</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Status_cmt</label>
+                <dataScope>status_cmt</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

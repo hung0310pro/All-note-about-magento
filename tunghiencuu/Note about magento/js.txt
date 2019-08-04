@@ -1,0 +1,51 @@
+Những cái Js hay : 
++ Gửi tất cả dữ liệu ở trong form bằng ajax
+function xacnhan2() {
+var formData = new FormData($('#bangchitiet')[0]);
+var iddong1 = $("#iddong").val();
+formData.append('iddong', iddong1);
+$.ajax({
+type: 'post',
+url: '?xacnhan3',
+data: formData,
+async: false,
+cache: false,
+contentType: false,
+processData: false,
+success: function (data) {
+makeSAlertright('Thành công', 3000);
+window.setTimeout(function () {
+location.reload()
+}, 1000);
+}
+}); //End Ajax
+}
+
++ window.dispatchEvent(new Event('resize')); onreset lại js và css (như f12 sau khi load trang)
++ thêm 1 đoạn div vào chung 1 div khác cùng tk div cha là confirmbox
+ if ($('#confirmBox .ajax-added-item').length) {
+$('#confirmBox #confirmButtons').appendTo($('#confirmBox .ajax-added-item'));
+} 
+
++get link url của thẻ a
+ console.log(jQuery("a.aw-acp-popup__close.continue")['context']['URL']) 
+
++ date('M d,Y', strtotime($post->getPublishDate()))
+
++ // AJAX add to bag
+jQuery('p').click(function () {
+// tìm xem trong cái div có class là .product-item-details có cái thẻ div có class
+// .swatch-attribute này k?
+var check = jQuery(this).closest('.product-item-details').find('.swatch-attribute');
+var checkClass = check.length;
+if (checkClass >= 1) {
+var valueOption = jQuery(this).closest(".product-item-details").find('.swatch-option.image.selected');
+if (valueOption.length == 0) {
+// lấy url của thẻ a mình bấm
+var n_url = jQuery(this).closest('.product-item-details').find('a').attr('href');
+window.location.href = n_url;
+}
+}
+});
+
+- closest(".product-item-details") là tìm cái class bao nó gần nhất (bao cái thể p ấy)

@@ -1,0 +1,8 @@
+﻿+ 1 số report of magento : Leftjoin, Right join...
++ Lấy đc các giá trị filter Tham khảo : (Magento 4 : Ryco->SalesOrder->Controller->Adminthml->Report->Sales->Sales.php)
+Ngoài ra sẽ lấy nó ở trong file  : Block->Adminhtml->Sales->Grid->Grid.php ($filterData = $this->getFilterData();)
+
++ Ngoài ra ta sẽ có bảng lọc Filter : Block->Adminhtml->Report->Filter->Form->Order.php
++ Ngoài ra còn dùng cái render để lấy dữ liệu tương ứng vs ID_Product(Như là lấy dữ liệu của cha khi có id của sản phẩm con, hoặc là lấy dữ liệu của con khi có Id của cha(trong 2 report....))
++ Ngoài ra còn có lấy dữ liệu trong 1 bảng  = addFieldToFilter,addFieldAtrributeToFilter....
++ Order by(Nosalereport,check sản phẩm out stock...)
