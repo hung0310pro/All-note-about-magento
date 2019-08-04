@@ -1,0 +1,27 @@
+﻿+ Cái sản phẩm này thì có checkbox, multi select, select....
+Muốn check sản phẩm có được tích : User Defined hay không thì trong 
+- file phtml ta check như sau : 
+* Đối vs trường hợp chỉ có 1 sản phẩm thì check : <?php list($_defaultQty, $_canChangeQty) = $block->getDefaultValues(); ?>
+Dùng cái $_canChangeQty (if ($block->showSingle()));
+
+* Đối vs nhiều sản phẩm (select option)
+ta có thể dùng $_selection->getSelectionCanChangeQty();
+Ngoài ra trong phần js price-bundle.js (như của mình đang check nếu k tích thì k in ra tiền)
+
+thì check phần này(if(parseInt(optionConfig[optionValue].customQty))) : 
+
+         _.each(prices, function (price, type) {
+                        if(parseInt(optionConfig[optionValue].customQty)){
+                            value = +price.amount;
+                            value += _.reduce(price.adjustments, function (sum, x) {//eslint-disable-line
+                                return sum + x;
+                            }, 0);
+                        }else{
+                            value = 0;
+                        }
+                        toTemplate.data[type] = {
+                            value: value,
+                            formatted: utils.formatPrice(value, format)
+                        };
+                    });
+Muốn biết rõ vào đó alert mấy cái xung quanh là biết (optionConfig[optionValue].customQty cái này chính là check nó tích hay không)

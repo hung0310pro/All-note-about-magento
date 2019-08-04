@@ -102,3 +102,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
 $optionValue = $this->getOptionLabelByValue('color','50'); // result is blue
 $optionId = $this->getOptionIdByLabel('color','Blue'); // result is 50
+
+
++ Trong phần admin(trước hết product thường được lọc ra bởi attribute), ngoài ra dùng để gọi ra key khi lôi những thông tin của product
+hoặc tạo lúc filter cho các module khác (ví dụ lọc sản phẩm sku cho bọn blog(Use for Promo Rule Conditions))
+thì check trong phần : Storefront Properties của attribute đó.

@@ -1,0 +1,33 @@
+﻿\Magento\Sales\Model\OrderRepository $orderRepository,
+\Magento\Sales\Model\ResourceModel\Order\Invoice\CollectionFactory $invoice_collection,
+\Magento\Sales\Model\ResourceModel\Order\Shipment\CollectionFactory $Shipment,
+
++ Lấy order theo id của order (thường gắn trên đường link rồi nên check cái  $id = $this->getRequest()->getParam("order_id"); trong block là đc)
+public function getOrderById($id)
+{
+		return $this->_orderRepository->get($id);
+}
+
+
++ Lấy shipvoice theo id của order
+public function getVoiceShip($id)
+{
+		$model = $this->_invoice->create();
+		$modelShip = $this->_shipment->create();
+		$array = [];
+		$detailVoice = $model->addFieldToFilter("order_id", ["eq" => $id])
+			->getData();
+		$detailShip = $modelShip->addFieldToFilter("order_id", ["eq" => $id])
+			->getData();
+
+		foreach ($detailVoice as $value) {
+			$array['voice_id'] = $value['increment_id'];
+		}
+
+		foreach ($detailShip as $value) {
+			$array['ship_id'] = $value['increment_id'];
+		}
+
+		return $array;
+}
+	

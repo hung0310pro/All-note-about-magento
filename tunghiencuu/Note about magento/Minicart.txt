@@ -1,0 +1,4 @@
+﻿đổi số lượng ở trong item của minicart : 
+trong file content.html (chỗ class="count"),và minicart.js check hàm getCartParam.
+http://prntscr.com/olanhy
+http://prntscr.com/olanow

@@ -1,0 +1,59 @@
+﻿+ Kiểm tra xem người dùng có đăng nhập hay không
+
+public function __construct(
+		\Magento\Framework\App\Helper\Context $context,
+		\Magento\Customer\Model\ResourceModel\Group\Collection $customerGroup,
+		array $data = []
+	)
+	{
+		$this->_customerGroup = $customerGroup;
+		parent::__construct($context);
+	}
+
+
+public function checkSession()
+{
+		$checkSession = $this->_objectManager->get('Magento\Customer\Model\Session');
+		return $checkSession;
+}
+
++ Thông tin của khách hàng : 
+
+public function getInformationCustomer()
+	{
+		$customerSession = $this->_objectManager->create('Magento\Customer\Model\Session');
+		$array = [];
+		if ($customerSession->isLoggedIn()) {
+			$array['birthday'] = $customerSession->getCustomer()->getDob();
+			$array['email'] = $customerSession->getCustomer()->getEmail();
+			$array['id_customer'] = $customerSession->getCustomer()->getId();
+			$array['gender'] = $customerSession->getCustomer()->getGender();
+		}
+		return $array;
+}
+
++ Check customer group : 
+
+public function getCustomerGroups()
+{
+		$customerGroups = $this->_customerGroup->toOptionArray();
+		return $customerGroups;
+}
+
+public function getCustomerId()
+	{
+		$customerSession = $this->_objectManager->create('Magento\Customer\Model\Session');
+		$array = [];
+		if ($customerSession->isLoggedIn()) {
+			$idGroup = $customerSession->getCustomer()->getGroupId();
+			foreach ($this->getCustomerGroups() as $value) {
+				if ($value['value'] == $idGroup) {
+					$array['group'] = $value['label'];
+					$array['enddate'] = $customerSession->getCustomer()->getEndDate();
+					$array['name'] = $customerSession->getCustomer()->getName();
+				}
+			}
+		}
+		return $array;
+}
+
