@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">myoffice_employeelisting.myoffice_employeelisting_data_source</item>
+            <item name="deps" xsi:type="string">myoffice_employeelisting.myoffice_employeelisting_data_source</item>
+        </item>
+
+        <!-- nút button ở để thêm -->
+        <item name="spinner" xsi:type="string">aht_myoffice_employee_entity_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add New Employee</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">myoffice/indexemployee/showadd</item>
+            </item>
+        </item>
+    </argument>
+
+    <dataSource name="tags_listing_data_source">
+        <settings>
+            <storageConfig>
+                <param name="dataScope" xsi:type="string">filters.store_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>AHT_Myoffice::products</aclResource>
+
+      <argument name="dataProvider" xsi:type="configurableObject">
+          <!--chỗ lấy dữ liệu từ những attribute liên quan  AHT\Myoffice\Ui\DataProvider\Employee\EmployeeDataProvider-->
+            <argument name="class" xsi:type="string">AHT\Myoffice\Ui\DataProvider\Employee\EmployeeDataProvider</argument>
+            <argument name="name" xsi:type="string">myoffice_employeelisting_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/bookmarks/bookmarks</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="saveUrl" xsi:type="url" path="mui/bookmark/save"/>
+                        <item name="deleteUrl" xsi:type="url" path="mui/bookmark/delete"/>
+                        <item name="namespace" xsi:type="string">myoffice_employeelisting</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <container name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            myoffice_employeelisting.myoffice_employeelisting.employee_columns
+                        </item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                </item>
+            </argument>
+        </container>
+
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">
+                            myoffice_employeelisting.myoffice_employeelisting.listing_top.bookmarks
+                        </item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">
+                        myoffice_employeelisting.myoffice_employeelisting.employee_columns.ids
+                    </item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+
+    <columns name="aht_myoffice_employee_entity_columns">
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="department_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Department Id</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Email</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="first_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">First Name</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="last_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Last Name</item>
+                </item>
+            </argument>
+        </column>
+      <!--chỗ lấy dữ liệu từ những attribute liên quan AHT\Myoffice\Ui\Component\Listing\Column\Note-->
+        <column name="note" class="AHT\Myoffice\Ui\Component\Listing\Column\Note" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">note</label>
+            </settings>
+        </column>
+         <column name="salary" class="AHT\Myoffice\Ui\Component\Listing\Column\Note" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Salary</label>
+            </settings>
+        </column>
+         <column name="dob" class="AHT\Myoffice\Ui\Component\Listing\Column\Note" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Dob</label>
+            </settings>
+        </column>
+         <column name="service_years" class="AHT\Myoffice\Ui\Component\Listing\Column\Note" sortOrder="70">
+            <settings>
+                <addField>true</addField>
+                <filter>textRange</filter>
+                <label translate="true">Service Years</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="AHT\Myoffice\Ui\Component\Listing\Column\MyofficeEpAction">
+            <settings>
+                <indexField>Entity id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+    </columns>
+
+</listing>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">myoffice_departmentshowupdate.block_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save">
+                <url path="myoffice/indexdepartment/updatedepartment/id"/>
+                <class>primary</class>
+                <label translate="true">Update</label>
+            </button>
+        </buttons>
+        <namespace>myoffice_departmentshowupdate</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>myoffice_departmentshowupdate.myoffice_departmentshowupdate_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="myoffice_departmentshowupdate_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="myoffice/indexdepartment/updatedepartment/id"/>
+        </settings>
+       <!-- trả về dữ liệu có sẵn trước đó-->
+            <dataProvider class="AHT\Myoffice\Model\Department\DataProvider" name="myoffice_departmentshowupdate_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="name" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Name</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>

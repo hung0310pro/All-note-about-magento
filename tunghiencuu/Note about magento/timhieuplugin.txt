@@ -1,4 +1,4 @@
-Plugin : 
+﻿Plugin : 
 
 Plugins can not be used on following:
 
@@ -16,7 +16,7 @@ Objects that are instantiated before Magento\Framework\Interception is bootstrap
 - Bạn có thể sử dụng before methods để thay đổi các đối số của một function gốc bằng cách trả về 1 ĐỐI SỐ ĐÃ SỬA ĐỔI.
 - Nếu có NHIỀU hơn một đối số, phương thức sẽ trả về một MẢNG các đối số đó.(tức là nếu như cái before methods trả về nhiều hơn 1 đối số thì nó sẽ trả về 1 mảng so vs hàm gốc(có thể hàm gốc chỉ trả về 1 đối số)).
 - Nếu phương thức không thay đổi đối số so với function gốc, nó sẽ trả về null(ví dụ file AHT\BlogBig\Plugin\Configurable  thì trong này nó cx chỉ trả về 1 đối số, và kết quả trả về không khác gì thằng hàm cũ thì ta trả về rỗng.(mặc dù có thể thay đổi số lượng sản phẩm trong mảng nhưng vẫn trả về mảng đó)).
-
+// cái này là check xem lấy swatch cho sản phẩm outstock
 + After : 
 
 - Magento sẽ chạy after methods sau khi nó hoàn thành cái hàm gốc. 

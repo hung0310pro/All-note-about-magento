@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
+<script src="plugins/datatables/jquery.dataTables.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.js"></script>
+<table id="bang1" class="table table-bordered table-striped table-hover text-center" border="1">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Salary</th>
+        <th>Service Years</th>
+        <th>Dob</th>
+        <th>Note</th>
+    </tr>
+    </thead>
+
+    <tfoot>
+	<?php
+	$list = $block->getDepartmentEmployee();
+	$a = 0;
+	foreach ($list as $key => $value) :
+		$a++;
+		$b = 0;
+		foreach ($value as $val) :
+			$b++;
+			?>
+            <tr>
+				<?php
+				if ($b == 1):
+					?>
+                    <td rowspan="<?= count($value) ?>"><?= $a ?></td>
+                    <td rowspan="<?= count($value) ?>"><?= $key ?></td>
+				<?php
+				endif;
+				?>
+                <td><?= $val['email'] ?></td>
+                <td><?= $val['first_name'] ?></td>
+                <td><?= $val['last_name'] ?></td>
+                <td><?= $val['dob'] ?></td>
+                <td><?= $val['service_years'] ?></td>
+                <td><?= number_format($val['salary']) ?></td>
+                <td><?= $val['note'] ?></td>
+            </tr>
+		<?php
+		endforeach;
+	endforeach;
+	?>
+    </tfoot>
+</table>
+
+</script>

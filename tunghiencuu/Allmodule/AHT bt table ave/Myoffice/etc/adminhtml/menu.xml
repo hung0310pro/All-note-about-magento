@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="AHT_Myoffice::myoffice" title="Myoffice" module="AHT_Myoffice" sortOrder="10"
+             resource="AHT_Myoffice::myoffice"/>
+        <add id="AHT_Myoffice::myoffice_departmentlist" title="Department" module="AHT_Myoffice" sortOrder="10"
+             action="myoffice/indexdepartment/index"
+             resource="AHT_Myoffice::myoffice" parent="AHT_Myoffice::myoffice"/>
+        <add id="AHT_Myoffice::myoffice_employeelist" title="Employee" module="AHT_Myoffice" sortOrder="10"
+             action="myoffice/indexemployee/index"
+             resource="AHT_Myoffice::myoffice" parent="AHT_Myoffice::myoffice"/>
+    </menu>
+</config>
