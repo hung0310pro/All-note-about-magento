@@ -41,12 +41,6 @@ class Form extends Generic
 	public function _prepareForm()
 	{
 		$dateFormat = $this->_localeDate->getDateFormat(\IntlDateFormatter::SHORT);
-
-		$model = $this->_portfolio->create();
-
-		$id = $this->getRequest()->getParam('entity_id');
-		$informationPf = $model->load($id)->getData();
-
 		$form = $this->_formFactory->create(
 			[
 				"data" => [
