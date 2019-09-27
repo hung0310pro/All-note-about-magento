@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--cái này có tác dụng khai báo bảng trong admin, và lấy dữ liệu của các thứ tương ứng-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Framework\App\Router\NoRouteHandler">
+        <plugin name="Convert_RouteHome_Plugin" type="Convert\RouteHome\Plugin\NoRouteHandler" />
+    </type>
+</config>

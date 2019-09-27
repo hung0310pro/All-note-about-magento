@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="aht_blogbig_widget" class="AHT\BlogBig\Block\BlogWidget\Widget\Posts">
+        <label translate="true">BlogBig Widget</label>
+        <description translate="true">Display BlogBig Information</description>
+        <parameters>
+            <parameter name="recordrows" xsi:type="text" visible="true">
+                <label translate="true">Quantity Product</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>
