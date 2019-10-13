@@ -1,0 +1,39 @@
+﻿protected $_platformProductManager;
+
+	protected $_productloader;
+
+    public function __construct(
+    	\Swarming\SubscribePro\Platform\Manager\Product $platformProductManager,
+        \Magento\Catalog\Model\ProductFactory $productloader,
+        Context $context
+    ) {
+    	$this->_platformProductManager = $platformProductManager;
+    	$this->_productloader = $productloader;
+        parent::__construct($context);
+    }
+
+    public function getLoadProduct($id)
+    {
+        return $this->_productloader->create()->load($id);(lấy hết thông tin của sản phaamt theo id);
+    }
+
+    public function getProductSubscribePro($sku){
+		return $this->_platformProductManager->getProduct($sku);
+	}(lấy thông tin của sản subscribePro phẩm theo sku)
+
+
++ vendor\subscribepro\subscribepro-magento2-ext\view\frontend\web\js\view\subscription\item.js    
+trong này có nhiều hàm lấy thông tin của sản phẩm sau khi order xong.
+ví dụ : 
+getProductInterval: function () {
+                return this.subscription.product.intervals;
+},
+
+
+<a data-bind="click: function() { editSubscribePro(getSubscriptionId()) }, i18n: 'Edit'" href="javascript:void(0)" class="edits-subscriptions"></a>
+
+đây là đoạn để mà khi load page k tự click :
+
+data-bind="click: function() { editSubscribePro(getSubscriptionId()) }
+(getSubscriptionId() lấy id của sản phẩm)
+trong file item.html của pethouse(Swarming_SubscrbePro);

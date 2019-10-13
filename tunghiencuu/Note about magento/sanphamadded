@@ -1,0 +1,10 @@
+vendor/magento/module-customer/view/frontend/web/js/customer-data.js
+
+reload: function (sectionNames, forceNewSectionTimestamp) {
+            return dataProvider.getFromServer(sectionNames, forceNewSectionTimestamp).done(function (sections) {
+                $(document).trigger('customer-data-reload', [sectionNames]);
+                buffer.update(sections);
+
+                sections.cart.items (tk này là lấy đc hết sản phẩm đã add, update, xóa)..
+            });
+    },
