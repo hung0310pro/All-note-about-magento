@@ -1,0 +1,17 @@
+app/design/frontend/YourCompany/yourtheme/Magento_Swatches/web/js/swatch-renderer.js
+Then I modified the _RenderFormInput() method which outputs the swatch <input> elements to have the data-msg-required attribute, like so:
+
+_RenderFormInput: function (config) {
+var msgTxt = $.mage.__("Please select");
+return '<input class="' + this.options.classes.attributeInput + ' super-attribute-select" ' +
+'name="super_attribute[' + config.id + ']" ' +
+'type="text" ' +
+'value="" ' +
+'data-selector="super_attribute[' + config.id + ']" ' +
+'data-validate="{required:true}" ' +
+// THIS IS WHAT I ADDED
+'data-msg-required="' + msgTxt + ' ' + config.label + '" ' +
+'aria-required="true" ' +
+'aria-invalid="true" ' +
+'style="visibility: hidden; position:absolute; left:-1000px">';
+}, change text require ('data-msg-required="' + msgTxt + ' ' + config.label + '" ' +) của cái shade option

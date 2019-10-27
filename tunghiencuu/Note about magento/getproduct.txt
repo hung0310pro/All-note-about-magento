@@ -1,0 +1,22 @@
+// get product review
+<div class="review-related">
+<?= $block->getReviewsSummaryHtml($_item, false, true) ?>
+</div>
+
+// get a attribute of product in related product (shortdescription).
+<?php if($_helper->productAttribute($_item, $_item->getShortDescription(), 'short_description')): ?>
+<div class="product description product-item-description">
+<?php / @escapeNotVerified / echo $_helper->productAttribute($_item, $_item->getShortDescription(), 'short_description') ?>
+</div>
+<?php endif ?>
+
+// get all information of product
+public function getProductCustom($id)
+{
+return $this->_productRepositoryFactory->create()->getById($id);
+}
+
+
+\Magento\Catalog\Api\ProductRepositoryInterfaceFactory $productRepositoryFactory, 
+
+$this->_productRepositoryFactory = $productRepositoryFactory;
