@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Stussy_RelatedToColour
+ *
+ * @category  Catalog
+ * @package   Stussy_RelatedToColour
+ * @author    Convert Digital
+ * @copyright 2019 Convert Digital
+ * @version   1.0.0
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+	<module name="Stussy_RelatedToColour" setup_version="1.0.0">
+		<sequence>
+			<module name="Magento_Catalog"/>
+			<module name="Magento_Swatches"/>
+			<module name="Magento_ConfigurableProduct"/>
+		</sequence>
+	</module>
+</config>

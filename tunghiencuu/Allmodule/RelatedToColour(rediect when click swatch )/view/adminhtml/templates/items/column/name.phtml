@@ -1,0 +1,80 @@
+<?php
+/**
+ * Stussy_RelatedToColour
+ *
+ * @category  Catalog
+ * @package   Stussy_RelatedToColour
+ * @author    Convert Digital
+ * @copyright 2019 Convert Digital
+ * @version   1.0.0
+ *
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * @see \Magento\Sales\Block\Adminhtml\Items\Column\Name
+ */
+?>
+
+<?php if ($_item = $block->getItem()): ?>
+    <div id="order_item_<?= $block->escapeHtml($_item->getId()) ?>_title"
+         class="product-title">
+        <?= $block->escapeHtml($_item->getName()) ?>
+    </div>
+    <div class="product-sku-block">
+        <span><?= $block->escapeHtml(__('SKU'))?>:</span> <?= implode('<br />', $this->helper('Magento\Catalog\Helper\Data')->splitSku($block->escapeHtml($block->getSku()))) ?>
+    </div>
+
+    <?php if ($block->getOrderOptions()): ?>
+        <dl class="item-options">
+            <?php
+            /** @var  \Stussy\RelatedToColour\Helper\Data $colourHelper */
+            $colourHelper = $this->helper('Stussy\RelatedToColour\Helper\Data');
+            $fulLDataProduct = $colourHelper->getParentProductBySku($block->getSku());
+            ?>
+            <?php if($fulLDataProduct != false && $fulLDataProduct->getData('colour_by_related')): ?>
+                <?php
+                $colorValue = $fulLDataProduct->getData('nav_colour2');
+                $attr = $fulLDataProduct->getResource()->getAttribute('nav_colour2');
+                if ($attr->usesSource() && $colorValue) {
+                    $optionText = $attr->getSource()->getOptionText($colorValue);
+                }
+                ?>
+                <?php if($optionText): ?>
+                    <dt><?= __('Colour:'); ?></dt>
+                    <dd><?= $optionText ?></dd>
+                <?php endif ?>
+            <?php endif ?>
+            <?php foreach ($block->getOrderOptions() as $_option): ?>
+                <dt><?= $block->escapeHtml($_option['label']) ?>:</dt>
+                <dd>
+                    <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>
+                        <?= $block->escapeHtml($block->getCustomizedOptionValue($_option)) ?>
+                    <?php else: ?>
+                        <?php $_option = $block->getFormattedOption($_option['value']); ?>
+                        <?= $block->escapeHtml($_option['value']) ?>
+                        <?php if (isset($_option['remainder']) && $_option['remainder']): ?>
+                            <?php $dots = 'dots' . uniqid(); ?>
+                            <span id="<?= /* @noEscape */ $dots; ?>"> ...</span>
+                        <?php  $id = 'id' . uniqid(); ?>
+                            <span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder']) ?></span>
+                            <script>
+                                require(['prototype'], function(){
+                                    $('<?= /* @noEscape */ $id; ?>').hide();
+                                    $('<?= /* @noEscape */ $id; ?>').up().observe('mouseover', function(){$('<?= /* @noEscape */ $id; ?>').show();});
+                                    $('<?= /* @noEscape */ $id; ?>').up().observe('mouseover', function(){$('<?= /* @noEscape */ $dots; ?>').hide();});
+                                    $('<?= /* @noEscape */ $id; ?>').up().observe('mouseout',  function(){$('<?= /* @noEscape */ $id; ?>').hide();});
+                                    $('<?= /* @noEscape */ $id; ?>').up().observe('mouseout',  function(){$('<?= /* @noEscape */ $dots; ?>').show();});
+                                });
+                            </script>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                </dd>
+            <?php endforeach; ?>
+        </dl>
+    <?php endif; ?>
+    <?= $block->escapeHtml($_item->getDescription()) ?>
+<?php endif; ?>

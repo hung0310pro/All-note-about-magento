@@ -22,3 +22,27 @@ console.log(productId);    (nhét thêm tk này vào hàm _OnClick thì cx lấy
 												?>
 											<?php endif; ?>
                                         </div>
+
+
++ Cách lấy đc màu, hoặc background của swatch 
+
+    $optionId = $relatedProduct->getData('nav_colour2');
+    public function getSwatchColourValue($optionId)
+    {
+        $swatchData = $this->_swatchHelper->getSwatchesByOptionsId([$optionId]);
+        if (isset($swatchData[$optionId]) && $swatchData[$optionId]['value']) {
+            switch ($swatchData[$optionId]['type']) {
+                case Swatch::SWATCH_TYPE_VISUAL_COLOR:
+                    $return = $swatchData[$optionId]['value'];
+                    break;
+                case Swatch::SWATCH_TYPE_VISUAL_IMAGE:
+                    $return = 'url(' . $this->_swatchMedia->getSwatchMediaUrl() . $swatchData[$optionId]['value'] . ')';
+                    break;
+                default:
+                    $return = '#111111';
+                    break;
+            }
+            return $return;
+        }
+        return '#111111';
+    }

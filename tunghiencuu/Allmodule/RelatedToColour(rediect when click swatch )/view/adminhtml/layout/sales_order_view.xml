@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Stussy_RelatedToColour
+ *
+ * @category  Catalog
+ * @package   Stussy_RelatedToColour
+ * @author    Convert Digital
+ * @copyright 2019 Convert Digital
+ * @version   1.0.0
+ *
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock class="Magento\Sales\Block\Adminhtml\Items\Column\Name" name="column_name" template="Stussy_RelatedToColour::items/column/name.phtml"/>
+    </body>
+</page>

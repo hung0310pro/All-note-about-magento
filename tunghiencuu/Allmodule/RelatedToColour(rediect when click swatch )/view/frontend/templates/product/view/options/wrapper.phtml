@@ -1,0 +1,76 @@
+<?php
+/**
+ * Stussy_RelatedToColour
+ *
+ * @category  Catalog
+ * @package   Stussy_RelatedToColour
+ * @author    Convert Digital
+ * @copyright 2019 Convert Digital
+ * @version   1.0.0
+ *
+ */
+?>
+<?php
+/** @var Stussy\RelatedToColour\Block\Product\View $block */
+?>
+
+<?php
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . __('* Required Fields') . '"';
+}
+?>
+
+<!-- end: product related colour options -->
+<div class="product-options-wrapper" id="product-options-wrapper"<?= /* @escapeNotVerified */ $required ?>>
+    <div class="fieldset" tabindex="0">
+        <?php if ($block->shouldShowRelatedColourOptions()): ?>
+            <!-- start: product related colour options -->
+            <?php $relatedProducts = $block->getRelatedColourProductInformation(); ?>
+            <?php $currentProductColourDetails = $block->getCurrentProductInformation(); ?>
+            <div class="attribute-swatch color-related" attribute-code="color-ralated">
+                <span class="swatch-attribute-label">Colour</span>
+                <div aria-activedescendant="" tabindex="0" aria-invalid="false" aria-required="true" role="listbox" class="swatch-attribute-options clearfix">
+                    <div class="swatch-dropdown-trigger"><span class="swatch-select-cms color" style="background: <?php echo $currentProductColourDetails['colour']; ?> no-repeat center; background-size: initial;"></span><?php echo $currentProductColourDetails['colour_label']; ?></div>
+                    <ul class="swatch-select color" style="">
+                        <li class="swatch-option color">
+                            <span class="swatch-select-cms color" style="background: <?php echo $currentProductColourDetails['colour']; ?> no-repeat center; background-size: initial;"></span><?php echo $currentProductColourDetails['colour_label']; ?>
+                        </li>
+                        <?php if (is_array($relatedProducts) && count($relatedProducts)>0) :?>
+                            <?php foreach ($relatedProducts as $relatedProduct) : ?>
+                                <li class="swatch-option color swatch-redirect-colour" option-url="<?php echo $relatedProduct['url']; ?>">
+                                    <span class="swatch-select-cms color" style="background: <?php echo $relatedProduct['colour']; ?> no-repeat center; background-size: initial;"></span><?php echo $relatedProduct['colour_label']; ?>
+                                    <span class="swatch-select-image color" style="display: none;"><img src="<?php echo $relatedProduct['image_url']; ?>" alt="<?php echo $relatedProduct['title']; ?>" title="<?php echo $relatedProduct['title']; ?>"></span>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- end: product related colour options -->
+        <?php endif; ?>
+        <?= $block->getChildHtml('', true) ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+            'jquery'
+        ],
+        function(jQuery) {
+            'use strict';
+            jQuery(document).ready(function() {
+                jQuery(".swatch-redirect-colour").click(function(event) {
+                    jQuery('#product-options-wrapper').trigger('processStart');
+                    event.preventDefault();
+                    let url = jQuery(this).attr("option-url");
+                    if (url.length > 1) {
+                        location.href = jQuery(this).attr("option-url");
+                    } else {
+                        location.reload(true)
+                    }
+                });
+            });
+        });
+</script>

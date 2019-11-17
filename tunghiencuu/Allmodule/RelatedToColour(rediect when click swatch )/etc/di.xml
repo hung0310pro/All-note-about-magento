@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Stussy_RelatedToColour
+ *
+ * @category  Catalog
+ * @package   Stussy_RelatedToColour
+ * @author    Convert Digital
+ * @copyright 2019 Convert Digital
+ * @version   1.0.0
+ *
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Block\Product\View" type="Stussy\RelatedToColour\Block\Product\View" />
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="stussy_clear_related_cache" type="Stussy\RelatedToColour\Plugin\ProductCache" sortOrder="10" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Related">
+        <plugin name="stussy_clear_related_collection" type="Stussy\RelatedToColour\Plugin\ProductList\Related" sortOrder="10" />
+    </type>
+</config>
