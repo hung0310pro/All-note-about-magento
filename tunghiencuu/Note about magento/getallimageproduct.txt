@@ -1,0 +1,63 @@
+<?php
+$helper = $this->helper('Stussy\CrosssellProduct\Helper\Data');
+$_product = $block->getProduct();
+$image = 'category_page_grid';
+$product = $helper->getProductCustom($_product->getId());
+$urlMedia = $helper->getBaseURLMedia() . "catalog/product";
+$productImage = $block->getImage($_product, $image);
+$images = $product->getMediaGalleryImages();
+
+$imageUrl = $productImage->getData('image_url');
+$checkImage = strstr($imageUrl, 'placeholder');
+?>
+
+<div class="product-media">
+	<?php if ($checkImage) : ?>
+        <div class="thumbnails-product-custom">
+            <img src="<?php echo $imageUrl; ?>" alt="<?php echo $productImage->getLabel() ?>"
+                 class="thumbnails-product-custom" id="imagedefaultlink">
+        </div>
+       // get all image product
+	<?php else: ?>
+		<?php $b = 0; ?>
+        <div class="lists-image-customs">
+			<?php foreach ($images as $child) : ?>
+				<?php if ($child->getData('file') != $product->getThumbnail()) : ?>
+                <?php $b++; ?>
+                    <div class="lists-image-custom">
+                        <img src="<?php echo $child->getUrl(); ?>" class="lists-image-custom" id="image<?= $b ?>link">
+                    </div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+        </div>
+
+		<?php $c = 0; ?>
+        <div class="lists-image-customs mobile owl-carousel">
+			<?php foreach ($images as $child) : ?>
+				<?php if ($child->getData('file') != $product->getThumbnail()) : ?>
+                <?php $c++; ?>
+                    <div class="lists-image-custom item">
+                        <img src="<?php echo $child->getUrl(); ?>" class="lists-image-custom"
+                             data-id="image<?= $c ?>link">
+                    </div>
+				<?php elseif ($child->getData('file') == $product->getThumbnail()) : ?>
+                    <div class="lists-image-custom mobile item">
+                        <img src="<?php echo $child->getUrl(); ?>" alt="<?php echo $productImage->getLabel() ?>"
+                             data-id="imageThumlink">
+                    </div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+        </div>
+
+		<?php foreach ($images as $child) : ?>
+			<?php if ($child->getData('file') == $product->getThumbnail()) : ?>
+                <div class="thumbnails-product-custom">
+                    <img src="<?php echo $child->getUrl(); ?>" alt="<?php echo $productImage->getLabel() ?>"
+                         class="thumbnails-product-custom" id="imageThumlink">
+                </div>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</div>
+
+

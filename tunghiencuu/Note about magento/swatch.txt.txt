@@ -1,0 +1,24 @@
+$label.text($this.attr('option-label'));
+$input.attr('data-attr-name', this._getAttributeCodeById(attributeId));   
+check đc là label attrbute vs là attribute gì trong product detail, chỗ swatch. (swatch-renderer.js), có cả id của product chọn và cả id cái swatch chọn 
+(dùng đc cả trong category hay bất kì list nào)
+
+var productId = this.element.parents('.product-item-details')
+ .find('.price-box.price-final_price').attr('data-product-id');
+console.log(productId);    (nhét thêm tk này vào hàm _OnClick thì cx lấy đc luôn product Id)
+
+
++ Cách lấy 1 vài swatch attribue product trong các list sản phẩm tự custom (như là size, color).
+   <span class="attribute-text"><?php echo $_item->getAttributeText('nav_colour2') ?></span>
+	<?= /* @noEscape */ $block->getProductPrice($_item) ?>
+                       <div class="swatch-option-size">
+											<?php if ($_item->getTypeId() == Configurable::TYPE_CODE) : ?>
+												<?php
+												$swatchBlock = $this->getLayout()->createBlock(SwatchesConfigurable::class)->setTemplate("Magento_Swatches::product/listing/renderer.phtml");
+												?>
+                                                <span><?php echo __('Size in stock') ?></span>
+												<?php
+												echo $swatchBlock->setProduct($_item)->toHtml();
+												?>
+											<?php endif; ?>
+                                        </div>

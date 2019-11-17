@@ -49,3 +49,21 @@ window.location.href = n_url;
 });
 
 - closest(".product-item-details") là tìm cái class bao nó gần nhất (bao cái thể p ấy)
+
++ click xong scroll trong js, chú ý cả cái đoạn (html, body)
+        function goToByScroll(id) {
+            // Reove "link" from the ID
+            id = id.replace("link", "");
+            // Scroll
+            $('html,body').animate({
+                    scrollTop: $("#" + id).offset().top
+                },
+                2000);
+        }
+
+        $(".product-notifications ul  li a").click(function (e) {
+            // Prevent a page reload when a link is pressed
+            e.preventDefault();
+            // Call the scroll function
+            goToByScroll($(this).attr("id"));
+        });
