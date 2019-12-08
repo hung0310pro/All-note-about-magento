@@ -1,0 +1,146 @@
+<?php
+$helper = $this->helper("Gssi\Base\Helper\Data");
+$_helper = $this->helper("Gssi\Quotes\Helper\Data");
+
+?>
+
+<div class="block-quote-view">
+	<div class="quote-view-info">
+		<div class="col-half">
+			<div class="col-half-2">
+				<strong><?php echo $helper->getQuoteLabelDetail() ?></strong><br/>
+				<strong><?php echo $helper->getQuoteLastUpdatedLabel() ?></strong><br/>
+				<strong><?php echo $helper->getQuoteExpiresDetailLabel() ?></strong><br/>
+				<strong><?php echo $helper->getQuoteRelatedLabel() ?></strong>
+			</div>
+			<div class="col-half-2">
+				<span><?php echo __('11123124') ?></span><br/>
+				<span><?php echo __('Jan 1, 2015') ?></span><br/>
+				<span><?php echo __('Jan 1, 2020') ?></span><br/>
+				<span><?php echo __('School in Bloomburg') ?></span>
+			</div>
+		</div>
+		<div class="col-half">
+			<div class="title"><strong><?php echo __('Last 5 Orders Related To This Quotes') ?></strong></div>
+			<div class="col-half-3">
+				<span><?php echo __('Jan 1, 2015') ?></span><br/>
+				<span><?php echo __('Jan 1, 2015') ?></span><br/>
+				<span><?php echo __('Jan 1, 2015') ?></span><br/>
+				<span><?php echo __('Jan 1, 2015') ?></span><br/>
+				<span><?php echo __('Jan 1, 2015') ?></span>
+			</div>
+			<div class="col-half-3">
+				<span><a href="<?=$block->getUrl('orders/view/detail/order_id')?>11123124"><?php echo __('11123124') ?></a></span><br/>
+				<span><a href="<?=$block->getUrl('orders/view/detail/order_id')?>11123124"><?php echo __('11123124') ?></a></span><br/>
+				<span><a href="<?=$block->getUrl('orders/view/detail/order_id')?>11123124"><?php echo __('11123124') ?></a></span><br/>
+				<span><a href="<?=$block->getUrl('orders/view/detail/order_id')?>11123124"><?php echo __('11123124') ?></a></span><br/>
+				<span><a href="<?=$block->getUrl('orders/view/detail/order_id')?>11123124"><?php echo __('11123124') ?></a></span>
+			</div>
+			<div class="col-half-3">
+				<span><?php echo __('$10,000') ?></span><br/>
+				<span><?php echo __('$10,000') ?></span><br/>
+				<span><?php echo __('$10,000') ?></span><br/>
+				<span><?php echo __('$10,000') ?></span><br/>
+				<span><?php echo __('$10,000') ?></span>
+			</div>
+		</div>
+	</div>
+	<div class="quote-view-description">
+		<div class="title"><strong><?php echo $helper->getQuoteDescriptionLabel(); ?></strong></div>
+		<div class="content">
+            <?= /* @escapeNotVerified */ __('Special quote to help rapid repairs due to ice storm in winter for <br>the school in Strasburg (in addition to standard project contract)') ?>
+		</div>
+	</div>
+	<form action="<?= $block->getUrl("quotes/index/addallproduct") ?>" method="post">
+		<div class="quote-view-items">
+			<table class="data table table-items items">
+				<thead>
+		            <tr>
+		                <th class="col sku"><?= /* @escapeNotVerified */ $helper->getQuoteSkuDetailLabel() ?></th>
+		                <th class="col item"><?= /* @escapeNotVerified */ $helper->getQuoteProductNameLabel() ?></th>
+		                <th class="col price"><?= /* @escapeNotVerified */ $helper->getQuotePriceDetailLabel() ?></th>
+		                <th class="col qty"><?= /* @escapeNotVerified */ $helper->getQuoteQuantityDetailLabel() ?></th>
+		            </tr>
+		        </thead>
+		        <tbody>
+				    <tr>
+			    	  	<?php
+				        $checkProduct = $_helper->loadMyProduct('02543');
+				        ?>
+				        <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>">
+				        <?php if($checkProduct) : ?>	
+				        	<img src="/pub/static/frontend/Gssi/convoy/en_US/images/logo.svg" />
+				        <?= $checkProduct->getData('sku'); ?>
+				    	<?php endif; ?>	
+				        </td>
+				        <td class="col item" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+				        	Roofing Underlayment
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	$18.56 each
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	<input type="number" name="qty[]" value="100">
+                            <input type="hidden" name="pricect[]" value="180">
+                            <input type="hidden" name="idproduct[]" value="2300">
+                            <input type="hidden" name="skuproduct[]" value="02543">
+				        </td>
+				    </tr>
+				    <tr>
+			    	  	<?php
+				        $checkProduct = $_helper->loadMyProduct('02556');
+				        ?>
+				        <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>">
+				        <?php if($checkProduct) : ?>	
+				        	<img src="/pub/static/frontend/Gssi/convoy/en_US/images/logo.svg" />
+				        <?= $checkProduct->getData('sku'); ?>
+				    	<?php endif; ?>	
+				        </td>
+				        <td class="col item" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+				        	Special: Pre-Cut Lumber at 12"
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	$18.56 each
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	<input type="number" name="qty[]" >
+                            <input type="hidden" name="pricect[]" value="150">
+                            <input type="hidden" name="idproduct[]" value="2301">
+                            <input type="hidden" name="skuproduct[]" value="02556">
+				        </td>
+				    </tr>
+				    <tr>
+			    	  	<?php
+				        $checkProduct = $_helper->loadMyProduct('0259000');
+				        ?>
+				        <td class="col sku" data-th="<?= $block->escapeHtml(__('SKU')) ?>">
+				        <?php if($checkProduct) : ?>	
+				        	<img src="/pub/static/frontend/Gssi/convoy/en_US/images/logo.svg" />
+				        <?= $checkProduct->getData('sku'); ?>
+				    	<?php endif; ?>	
+				        </td>
+				        <td class="col item" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+				        	Roofing Underlayment
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	$18.56 box
+				        </td>
+				        <td class="col price" data-th="<?= $block->escapeHtml(__('Quote Price')) ?>">
+				        	<input type="number" name="qty[]">
+                            <input type="hidden" name="pricect[]" value="200">
+                            <input type="hidden" name="idproduct[]" value="2302">
+                            <input type="hidden" name="skuproduct[]" value="0259000">
+				        </td>
+				    </tr>
+		        </tbody>
+			</table>
+		</div>
+
+		<div class="actions-toolbar">
+            <div class="primary"><button type="submit" class="action login primary"><span><?= $helper->getQuoteSelectedProductLabel(); ?></span></button></div>
+            <div class="notes">
+	           	<span><?= /* @escapeNotVerified */ __('*Orders submitted through this quote are subject to quote terms and <br>may be adjusted by your sales representative before being finalized.') ?></span>
+	        </div>
+        </div>
+	</form>
+</div>
