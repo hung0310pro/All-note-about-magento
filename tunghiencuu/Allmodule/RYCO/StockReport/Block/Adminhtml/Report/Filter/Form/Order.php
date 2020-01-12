@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace RYCO\NoSalesReport\Block\Adminhtml\Report\Filter\Form;
+namespace RYCO\StockReport\Block\Adminhtml\Report\Filter\Form;
 
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Backend\Block\Template\Context;

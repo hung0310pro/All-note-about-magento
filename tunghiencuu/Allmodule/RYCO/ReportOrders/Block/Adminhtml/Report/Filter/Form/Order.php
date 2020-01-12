@@ -40,7 +40,7 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 		parent::__construct($context, $registry, $formFactory, $data);
 	}
 
-	/*public function getAttributeSize()
+	public function getAttributeSize()
 	{
 		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
@@ -48,13 +48,95 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 		$myArray = [];
 		foreach ($sizes as $sizesOption) {
 			if ($sizesOption->getValue() != '') {
-				$myArray['all'] = 'All';
+				$myArray[1] = 'All';
 				$myArray[$sizesOption->getValue()] = $sizesOption->getLabel();
 
 			}
 		}
 		return $myArray;
-	}*/
+	}
+
+	public function getAttributeSeason()
+	{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+		$seasons = $productRepository->get('season')->getOptions();
+		$myArray = [];
+		foreach ($seasons as $seasonOption) {
+			if ($seasonOption->getValue() != '') {
+				$myArray[1] = 'All';
+				$myArray[$seasonOption->getValue()] = $seasonOption->getLabel();
+
+			}
+		}
+		return $myArray;
+	}
+
+	public function getAttributeType()
+	{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+		$types = $productRepository->get('type')->getOptions();
+		$myArray = [];
+		foreach ($types as $typeOption) {
+			if ($typeOption->getValue() != '') {
+				$myArray[1] = 'All';
+				$myArray[$typeOption->getValue()] = $typeOption->getLabel();
+
+			}
+		}
+		return $myArray;
+	}
+
+	public function getAttributeBrand()
+	{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+		$brands = $productRepository->get('ryco_brand')->getOptions();
+		$myArray = [];
+		foreach ($brands as $brandOption) {
+			if ($brandOption->getValue() != '') {
+				$myArray[1] = 'All';
+				$myArray[$brandOption->getValue()] = $brandOption->getLabel();
+
+			}
+		}
+		return $myArray;
+	}
+
+
+	public function getAttributeSupplier()
+	{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+		$suppliers = $productRepository->get('brand')->getOptions();
+		$myArray = [];
+		foreach ($suppliers as $supplierOption) {
+			if ($supplierOption->getValue() != '') {
+				$myArray[1] = 'All';
+				$myArray[$supplierOption->getValue()] = $supplierOption->getLabel();
+
+			}
+		}
+		return $myArray;
+	}
+
+	public function getAttributeColour()
+	{
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$productRepository = $objectManager->get('\Magento\Catalog\Model\Product\Attribute\Repository');
+		$colours = $productRepository->get('color')->getOptions();
+		$myArray = [];
+		foreach ($colours as $colourOption) {
+			if ($colourOption->getValue() != '') {
+				$myArray[1] = 'All';
+				$myArray[$colourOption->getValue()] = $colourOption->getLabel();
+
+			}
+		}
+		return $myArray;
+	}
+
 
 	/**
 	 * Add report type option
@@ -123,6 +205,72 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 				'required' => false,
 				'css_class' => 'admin__field-small',
 				'class' => 'admin__control-text'
+			]
+		);
+
+		$fieldset->addField(
+			"sizes",
+			"select",
+			[
+				"name" => "sizes",
+				"label" => __("Size"),
+				"required" => false,
+				"options" => $this->getAttributeSize(),
+			]
+		);
+
+		$fieldset->addField(
+			"season",
+			"select",
+			[
+				"name" => "season",
+				"label" => __("Season"),
+				"required" => false,
+				"options" => $this->getAttributeSeason(),
+			]
+		);
+
+		$fieldset->addField(
+			"type",
+			"select",
+			[
+				"name" => "type",
+				"label" => __("Type"),
+				"required" => false,
+				"options" => $this->getAttributeType(),
+			]
+		);
+
+		$fieldset->addField(
+			"brand",
+			"select",
+			[
+				"name" => "brand",
+				"label" => __("Brand"),
+				"required" => false,
+				"options" => $this->getAttributeBrand(),
+			]
+		);
+
+		$fieldset->addField(
+			"supplier",
+			"select",
+			[
+				"name" => "supplier",
+				"label" => __("Supplier"),
+				"required" => false,
+				"options" => $this->getAttributeSupplier(),
+			]
+		);
+
+		$fieldset->addField(
+			"colour",
+			"select",
+			[
+				"name" => "colour",
+				"label" => __("Colour"),
+				"required" => false,
+				"options" => $this->getAttributeColour(),
 			]
 		);
 

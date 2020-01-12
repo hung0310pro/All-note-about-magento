@@ -1,1 +1,0 @@
-﻿use pluggin, và mặc định chuyển hướng trang về home khi nó link sai

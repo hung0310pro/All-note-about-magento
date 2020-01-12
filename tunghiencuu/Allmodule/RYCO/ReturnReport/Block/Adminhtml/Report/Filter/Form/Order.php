@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace RYCO\NoSalesReport\Block\Adminhtml\Report\Filter\Form;
+namespace RYCO\ReturnReport\Block\Adminhtml\Report\Filter\Form;
 
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
 use Magento\Backend\Block\Template\Context;
@@ -39,22 +39,6 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 		$this->_collectionFactoryProduct = $collectionFactoryProduct;
 		parent::__construct($context, $registry, $formFactory, $data);
 	}
-
-
-	/**
-	 * Add report type option
-	 *
-	 * @param string $key
-	 * @param string $value
-	 * @return $this
-	 * @codeCoverageIgnore
-	 */
-	public function addReportTypeOption($key, $value)
-	{
-		$this->_reportTypeOptions[$key] = __($value);
-		return $this;
-	}
-
 
 	public function getAttributeSize()
 	{
@@ -155,6 +139,20 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 
 
 	/**
+	 * Add report type option
+	 *
+	 * @param string $key
+	 * @param string $value
+	 * @return $this
+	 * @codeCoverageIgnore
+	 */
+	public function addReportTypeOption($key, $value)
+	{
+		$this->_reportTypeOptions[$key] = __($value);
+		return $this;
+	}
+
+	/**
 	 * Add fieldset with general report fields
 	 *
 	 * @return $this
@@ -182,7 +180,6 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 
 		$fieldset->addField('store_ids', 'hidden', ['name' => 'store_ids']);
 
-
 		$fieldset->addField(
 			'from',
 			'date',
@@ -191,7 +188,7 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 				'date_format' => $dateFormat,
 				'label' => __('From'),
 				'title' => __('From'),
-				'required' => true,
+				'required' => false,
 				'css_class' => 'admin__field-small',
 				'class' => 'admin__control-text'
 			]
@@ -205,17 +202,17 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 				'date_format' => $dateFormat,
 				'label' => __('To'),
 				'title' => __('To'),
-				'required' => true,
+				'required' => false,
 				'css_class' => 'admin__field-small',
 				'class' => 'admin__control-text'
 			]
 		);
 
 		$fieldset->addField(
-			"size",
+			"sizes",
 			"select",
 			[
-				"name" => "size",
+				"name" => "sizes",
 				"label" => __("Size"),
 				"required" => false,
 				"options" => $this->getAttributeSize(),
@@ -278,13 +275,23 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 		);
 
 		$fieldset->addField(
-			"sku1",
+			"sku",
 			"text",
 			[
-				"name" => "sku1",
+				"name" => "sku",
 				"label" => __("SKU"),
 				"required" => false,
 				"note" => "Must write words separated by commas.",
+			]
+		);
+
+		$fieldset->addField(
+			"area",
+			"text",
+			[
+				"name" => "area",
+				"label" => __("Area"),
+				"required" => false,
 			]
 		);
 
@@ -297,7 +304,6 @@ class Order extends \Magento\Backend\Block\Widget\Form\Generic
 				"required" => false,
 			]
 		);
-
 
 		$form->setUseContainer(true);
 		$this->setForm($form);

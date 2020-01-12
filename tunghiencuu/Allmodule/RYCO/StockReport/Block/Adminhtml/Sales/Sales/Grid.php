@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales;
+namespace RYCO\StockReport\Block\Adminhtml\Sales\Sales;
 
 use function Couchbase\passthruEncoder;
 use Magento\Framework\ObjectManagerInterface;
@@ -16,7 +16,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 	/**
 	 * @var string
 	 */
-	protected $_template = 'RYCO_NoSalesReport::widget/grid/extended.phtml';
+	protected $_template = 'RYCO_StockReport::widget/grid/extended.phtml';
 
 	/**
 	 * @param \Magento\Backend\Block\Template\Context $context
@@ -200,7 +200,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'index' => 'name',
 				'type' => 'text',
 				'sortable' => false,
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\NameProduct'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\NameProduct'
 			]
 		);
 
@@ -210,7 +210,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'header' => __('Thumbnail'),
 				'sortable' => false,
 				'index' => 'entity_id',
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\Image'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\Image'
 
 			]
 		);
@@ -222,7 +222,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'index' => 'qty',
 				'type' => 'text',
 				'sortable' => false,
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\QtyProduct'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\QtyProduct'
 			]
 		);
 
@@ -233,7 +233,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'index' => 'sku',
 				'type' => 'text',
 				'sortable' => false,
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\SkuProduct'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\SkuProduct'
 			]
 		);
 
@@ -244,7 +244,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'index' => 'sizepr',
 				'type' => 'text',
 				'sortable' => false,
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\SizeProduct'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\SizeProduct'
 			]
 		);
 
@@ -256,7 +256,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 				'index' => 'description',
 				'type' => 'text',
 				'sortable' => false,
-				'renderer' => 'RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\DescriptionProduct'
+				'renderer' => 'RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer\DescriptionProduct'
 			]
 		);
 

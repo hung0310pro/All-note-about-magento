@@ -1,6 +1,6 @@
 <?php
 
-namespace RYCO\NoSalesReport\Block\Adminhtml\Sales\Sales\Grid\Renderer;
+namespace RYCO\StockReport\Block\Adminhtml\Sales\Sales\Grid\Renderer;
 
 use Magento\Framework\DataObject;
 use Magento\Framework\ObjectManagerInterface;
